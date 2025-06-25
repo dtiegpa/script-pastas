@@ -1,0 +1,55 @@
+const MAIN_FOLDER_ID = '1Sjzk4chAH7ngUK2DVn87H1Nt57-1a1m8';
+
+function onFormSubmit(e) {
+  const respostas = e.namedValues;
+  const nome = respostas['NOME'][0];
+
+  if (!nome) return;
+
+  const pastaPrincipal = DriveApp.getFolderById(MAIN_FOLDER_ID);
+
+  // Criar ou acessar pasta da pessoa
+  let pastaPessoa;
+  const pastas = pastaPrincipal.getFoldersByName(nome);
+  if (pastas.hasNext()) {
+    pastaPessoa = pastas.next();
+  } else {
+    pastaPessoa = pastaPrincipal.createFolder(nome);
+  }
+
+  // Lista de campos de upload com nomes desejados para os arquivos
+  const documentos = [
+    { campo: 'RG e CPF', nomeArquivo: 'RG e CPF' },
+    { campo: 'Certidão de Nascimento', nomeArquivo: 'Certidão de Nascimento' }
+  ];
+
+  documentos.forEach(doc => {
+    const arquivos = respostas[doc.campo]?.[0];
+    if (!arquivos) return;
+
+    const links = arquivos.split(', ');
+    let contador = 1;
+
+    for (const link of links) {
+      const fileId = extrairIdDoLink(link);
+      if (fileId) {
+        const originalFile = DriveApp.getFileById(fileId);
+        const extensao = originalFile.getName().split('.').pop();
+
+        const nomeBase = `${doc.nomeArquivo} (${nome})`;
+        const nomeFinal = (links.length > 1)
+          ? `${nomeBase} (${contador}).${extensao}`
+          : `${nomeBase}.${extensao}`;
+
+        originalFile.makeCopy(nomeFinal, pastaPessoa);
+        originalFile.setTrashed(true); // opcional
+        contador++;
+      }
+    }
+  });
+}
+
+function extrairIdDoLink(link) {
+  const match = link.match(/[-\w]{25,}/);
+  return match ? match[0] : null;
+}
