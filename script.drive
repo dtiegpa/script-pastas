@@ -1,4 +1,4 @@
-const MAIN_FOLDER_ID = '1Sjzk4chAH7ngUK2DVn87H1Nt57-1a1m8';
+const MAIN_FOLDER_ID = 'ID DA PASTA PRINCIPAL AQUI';
 
 function onFormSubmit(e) {
   const respostas = e.namedValues;
