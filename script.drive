@@ -2,7 +2,7 @@ const MAIN_FOLDER_ID = 'ID DA PASTA PRINCIPAL AQUI';
 
 function onFormSubmit(e) {
   const respostas = e.namedValues;
-  const nome = respostas['NOME'][0];
+  const nome = respostas['NOME COMPLETO'][0];
 
   if (!nome) return;
 
@@ -18,10 +18,12 @@ function onFormSubmit(e) {
   }
 
   // Lista de campos de upload com nomes desejados para os arquivos
-  const documentos = [
-    { campo: 'RG e CPF', nomeArquivo: 'RG e CPF' },
-    { campo: 'Certidão de Nascimento', nomeArquivo: 'Certidão de Nascimento' }
-  ];
+const documentos = [
+  { campo: 'Anexe aqui os seus DOCUMENTOS DE IDENTIFICAÇÃO', nomeArquivo: 'Documentos de Identificação' },
+  { campo: 'Anexe aqui os seus DOCUMENTOS DE FORMAÇÃO', nomeArquivo: 'Documentos de Formação' },
+  { campo: 'Anexe aqui os seus DOCUMENTOS DE EXPERIÊNCIA PROFISSIONAL', nomeArquivo: 'Documentos de Experiência Profissional' },
+  { campo: 'Anexe aqui os seus DOCUMENTOS DE QUALIFICAÇÃO', nomeArquivo: 'Documentos de Qualificação' }
+];
 
   documentos.forEach(doc => {
     const arquivos = respostas[doc.campo]?.[0];
