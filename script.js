@@ -1,14 +1,15 @@
 const MAIN_FOLDER_ID = 'ID DA PASTA PRINCIPAL AQUI';
 
+// Em "const nome = respostas" o nome deve estar idêntico ao Forms.
 function onFormSubmit(e) {
   const respostas = e.namedValues;
-  const nome = respostas['NOME'][0];
+  const nome = respostas['NOME COMPLETO'][0];
 
   if (!nome) return;
 
   const pastaPrincipal = DriveApp.getFolderById(MAIN_FOLDER_ID);
 
-  // Criar ou acessar pasta da pessoa
+  // Criar ou acessar pasta da pessoa.
   let pastaPessoa;
   const pastas = pastaPrincipal.getFoldersByName(nome);
   if (pastas.hasNext()) {
@@ -17,10 +18,11 @@ function onFormSubmit(e) {
     pastaPessoa = pastaPrincipal.createFolder(nome);
   }
 
-  // Lista de campos de upload com nomes desejados para os arquivos
+  // Lista de campos de upload com nomes desejados para os arquivos.
+  // O campo "campo" precisa estar idêntico ao Forms.
+  // O campo "nomeArquivo" NÃO precisa estar igual ao Forms.
   const documentos = [
-    { campo: 'RG e CPF', nomeArquivo: 'RG e CPF' },
-    { campo: 'Certidão de Nascimento', nomeArquivo: 'Certidão de Nascimento' }
+    { campo: 'NOME DA PERGUNTA NO FORMS AQUI', nomeArquivo: 'NOME DO ARQUIVO NO DRIVE' },
   ];
 
   documentos.forEach(doc => {
