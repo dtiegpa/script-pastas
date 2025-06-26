@@ -3,7 +3,7 @@ const MAIN_FOLDER_ID = 'ID DA PASTA PRINCIPAL AQUI';
 // Em "const nome = respostas" o nome deve estar idêntico ao Forms.
 function onFormSubmit(e) {
   const respostas = e.namedValues;
-  const nome = respostas['NOME COMPLETO'][0];
+  const nome = respostas['NOME COMPLETO DA OSC'][0];
 
   if (!nome) return;
 
@@ -22,7 +22,10 @@ function onFormSubmit(e) {
   // O campo "campo" precisa estar idêntico ao Forms.
   // O campo "nomeArquivo" NÃO precisa estar igual ao Forms.
   const documentos = [
-    { campo: 'NOME DA PERGUNTA NO FORMS AQUI', nomeArquivo: 'NOME DO ARQUIVO NO DRIVE' },
+    { campo: 'DOCUMENTOS DE IDENTIFICAÇÃO', nomeArquivo: 'DOCUMENTOS DE IDENTIFICAÇÃO' },
+    { campo: 'DOCUMENTOS DE EXPERIÊNCIA', nomeArquivo: 'DOCUMENTOS DE EXPERIÊNCIA' },
+    { campo: 'PROPOSTA DE ATUAÇÃO', nomeArquivo: 'PROPOSTA DE ATUAÇÃO' },
+    { campo: 'CERTIDÕES E DECLARAÇÕES', nomeArquivo: 'CERTIDÕES E DECLARAÇÕES' },
   ];
 
   documentos.forEach(doc => {
